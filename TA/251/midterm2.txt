@@ -1,0 +1,71 @@
+Algorithms on Sequences:
+
+First, many students didn't understand the problem. Let us define
+"matching" to be pairings of n numbers into n/2 pairs. For example,
+when S={1,2,4,8,9,10}, the following can be a matching:
+
+M' = {(1,4), (2,9), (8,10)}
+
+For each matching, let us define the "maximum sum" to be the sum of
+any pair in the matching, with the largest value. For the matching M'
+above, the maximum sum would be 18, formed by the pair (8, 10).
+
+Now, the question asks to find a matching such that the maximum sum is
+minimized. The above M is clearly not the best answer, as the
+algorithm we discussed in class gives a matching:
+
+M = {(1,10), (2,9), (4,8)}
+
+whose maximum sum is 12, formed by the pair (4,8). Note that the
+maximum sum is not always formed by the smallest number and the
+largest number -- some people tried to argue this in the exam.
+
+Now, let's prove the correctness of the algorithm. There are two
+proofs that are distinct from the solution on the course webpage. I
+gave one of them during the tutorial session. Here goes:
+
+Proof 1. 
+Let M denote the solution given by our algorithm, and suppose M is
+not the best solution. Then there exists a better matching M' with
+smaller maximum sum than M. Let i and i' denote the pair in M that
+gives the maximum sum of M. We shall see how M' does better than
+M. 
+
+First, consider any arbitrary number j' > i'. In M', j' must be
+paired with a number j < i, since otherwise j+j' > i+i', contradicting
+that M' is better than M. Furthermore, because our algorithm
+repeatedly picks the largest number to the smallest number and so on,
+the number of elements > i' is precisely the same as the number of
+elements < i. This implies that M' forms a 1-1 correspondence between
+the elements > i', and the elements < i. 
+
+Now, let us consider the element i'. Since M' must be better, i'
+cannot be paired with a number >= i. So i' must be paired with a
+number < i.  But this is impossible, since the numbers < i are covered by
+the numbers > i'. A contradiction.
+
+
+Proof 2. 
+Let M denote the solution given by our algorithm, and suppose there
+exists a better solution M'. We shall now transform M' into M without
+changing sums of the pairs, thereby showing that the maximum sum of M'
+was in fact the same as in M. 
+
+In M', if the first element x_1 is paired with the last element x_n, then
+leave it untouched. Otherwise, M' has the pairings:
+
+(x_1, x_i), (x_j, x_n)
+
+Now we shall change these pairings into:
+
+(x_1, x_n), (x_i, x_j),
+
+and leave all othe pairings untouched. Observe that this operation
+does not change the value of the sums. (First pairing increased by x_n
+- x_i, and the second pairing decreased by x_n - x_i. ) Now, M' pairs
+x_1 with x_n.  We now remove (x_1, x_n) from the array, and repeat the
+same operation until we reach the middle. When we are done with this
+process, we will have transformed M' into precisely the matching
+M. Furthermore, we would have done this without changing the sum of
+all pairs. Therefore, the maximum sum of the original M' is no better
+than that of M. A contradiction.
